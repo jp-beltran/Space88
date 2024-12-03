@@ -1,0 +1,60 @@
+.view{
+    height: 100vh;
+    padding: 5rem 7rem;
+    background: #232225;
+    ;
+
+
+}
+
+.view header content{
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.view header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.view main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.clients{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    padding: 2rem;
+
+}
+
+.clients h2{
+    color: #fff;
+    font-size: 1.3rem;
+
+}
+
+.clients p{
+    color: var(--yellow-500);
+    font-size: 1.3rem;
+
+    text-transform: capitalize;
+
+
+}
+
+
+
+
+

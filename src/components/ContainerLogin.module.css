@@ -1,0 +1,69 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    gap: 4rem;
+
+    font-family: "Titillium Web", sans-serif;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+
+    gap: 3rem;
+
+    width: 50%;
+    
+}
+
+
+
+.container h1 {
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    color: var(--Gray-100, #F1F5F9);
+}
+
+
+.container h2{
+    font-size: var(--font-size-medium);
+    font-weight: 400;
+    color: var(--Gray-100, #F1F5F9);
+    line-height: normal;
+}
+
+.container h3{
+    font-size: var(--font-size-small);
+    font-weight: 400;
+    color: var(--gray-100);
+    line-height: normal;
+}
+
+.container span{
+    color: var(--yellow-300);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.container label{
+    display: flex;
+    flex-direction: column;
+
+    color: #E1E1E6;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+}
+
+.container .wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+
+
+

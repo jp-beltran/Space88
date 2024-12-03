@@ -1,0 +1,19 @@
+.view{
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.view .container{
+    width: 50%;
+}
+
+.view img{
+    object-fit: cover;
+    width: 50%;
+}
+
+
+
+

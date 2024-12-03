@@ -1,0 +1,76 @@
+.period{
+    background: var(--backgroud);
+    
+    border-radius: 0.5rem;
+
+    border: 1px solid var(--gray-600);
+}
+
+.period header{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+
+    border-bottom: 1px solid var(--gray-600);
+    padding: 0.75rem 1.25rem;
+}
+
+.period header h2{
+    color: var(--gray-300);
+
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    padding: 1.25rem;
+
+}
+
+.period header .periodIconWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2rem;
+}
+
+
+
+.client{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    align-items: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--gray-600);
+}
+
+.client h2{
+    color: var(--gray-200, #B2AFB6);
+    text-align: center;
+
+    font-family: Catamaran;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.5rem; 
+}
+
+.client p{
+    color: var(--gray-200, #B2AFB6);
+    font-family: Catamaran;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+}
+
+.noAppointments{
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+
+    color: var(--gray-300);
+    font-weight: 700;
+}

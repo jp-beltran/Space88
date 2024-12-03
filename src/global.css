@@ -1,0 +1,46 @@
+html{
+    max-width: 100vw;
+    max-height: 100vh;
+
+    height: 100%;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root, button, input, ::placeholder{
+    font-size: 62.5%;
+
+    --font-size-small: 1.3rem;
+    --font-size-medium: 2rem;
+    --font-size-large: 3rem;
+    --font-size-title: 4rem;
+
+    --gray-100: #F1F5F9;
+    --gray-200: #B2AFB6;
+    --gray-300: #98959D;
+    --gray-400: #818181;
+    --gray-600: #2E2C30;
+    --gray-700: #232225;
+    --gray-800: #202020;
+    --gray-1000: #121214;
+
+
+    --yellow-100: #ffeea4;
+    --yellow-300: #F6DA5E;
+    --yellow-500: #f8d847;
+    --yellow-700: #ffd519;
+
+    --background: #232225;
+
+    font-family: "Titillium Web", sans-serif;
+
+    
+}
+
+body{
+    background-color: var(--background);
+}

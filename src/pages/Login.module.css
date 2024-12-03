@@ -1,0 +1,18 @@
+.view{
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.view .container{
+    width: 50%;
+}
+
+
+.view img{
+    object-fit: cover;
+    width: 50%;
+}
+
+

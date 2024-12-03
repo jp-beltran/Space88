@@ -1,0 +1,68 @@
+.view {
+    height: 100vh;
+    padding: 5rem 7rem;
+    background: #232225;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+header .content {
+    display: flex;
+    flex-direction: column;
+}
+
+header input {
+    background: #1e1e20;
+    color: white;
+    border: 1px solid var(--yellow-300);
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    background: #2e2e31;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+
+.clients {
+    background: #1e1e20;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.clients h2 {
+    font-size: 1.2rem;
+    color: var(--yellow-500);
+    margin-bottom: 0.5rem;
+}
+
+.clients p {
+    font-size: 1rem;
+    color: var(--gray-100);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.noAppointments {
+    color: var(--gray-400);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
