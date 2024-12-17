@@ -1,7 +1,10 @@
-# Space88
+![image](https://github.com/user-attachments/assets/d9b4b4b6-ec24-49bf-b18b-5a55ba366028)# Space88
 
 **Space88** é um sistema de agendamento online para uma barbearia. A aplicação permite que usuários criem contas, façam login e agendem serviços. Barbeiros também podem acessar o sistema para visualizar seus atendimentos. O projeto utiliza **React**, **Firebase (Authentication, Firestore)** e **Firebase Hosting** para armazenamento e autenticação, além de **Vercel** para hospedagem do frontend.
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/fe461af4-4925-4367-a138-308ccd61f46c)
+![image](https://github.com/user-attachments/assets/54ef4a02-fb17-4cb2-afff-e3f0d4196141)
+
+
 
 
 ### URL do Repositório
