@@ -1,2 +1,17 @@
+.view{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 
+}
 
+.container{
+    width: 50%;
+}
+
+.userview{
+    width: 50%;
+}

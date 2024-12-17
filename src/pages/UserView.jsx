@@ -1,17 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import styles from './UserView.module.css';
+import { auth, db } from '../../firebase'; // Firebase Auth e Firestore
+import { collection, query, where, getDocs } from 'firebase/firestore'; // Firestore
 
 export default function UserView() {
     const [agendamentos, setAgendamentos] = useState([]);
     const [filterDate, setFilterDate] = useState('');
+    const [userEmail, setUserEmail] = useState('');
 
     useEffect(() => {
-        // Recupera os agendamentos do localStorage
-        const savedAgendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-        setAgendamentos(savedAgendamentos);
+        // Obter o e-mail do usuário logado
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                setUserEmail(user.email);
+            } else {
+                console.error("Usuário não autenticado.");
+            }
+        });
+
+        return () => unsubscribe();
     }, []);
 
-    // Filtra os agendamentos por data
+    useEffect(() => {
+        const fetchAgendamentos = async () => {
+            try {
+                if (!userEmail) return; // Não busca se não tiver usuário
+
+                const agendamentosRef = collection(db, 'agendamentos');
+                const q = query(agendamentosRef, where('email', '==', userEmail));
+
+                const querySnapshot = await getDocs(q);
+                const agendamentosData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setAgendamentos(agendamentosData);
+
+            } catch (error) {
+                console.error("Erro ao buscar agendamentos:", error.message);
+            }
+        };
+
+        fetchAgendamentos();
+    }, [userEmail]);
+
     const filterByDate = (agendamentos, date) => {
         if (!date) return agendamentos;
         return agendamentos.filter(agendamento => agendamento.data === date);

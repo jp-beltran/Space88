@@ -78,3 +78,45 @@
 .appointmentCard{
     border-bottom: 1.4px solid var(--gray-100);
 }
+
+@media (max-width: 1200px) {
+    .container .sheduleContainer {
+        gap: 10rem;
+    }
+
+    .container .period {
+        width: 30rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container .sheduleContainer {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .container .period {
+        width: 90%;
+        min-height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .container header h1 {
+        font-size: var(--font-size-medium);
+    }
+
+    .container header p {
+        font-size: var(--font-size-small);
+    }
+
+    .container .period h2 {
+        font-size: var(--font-size-medium);
+    }
+
+    .container .period p,
+    .container .period strong {
+        font-size: var(--font-size-small);
+    }
+}

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import styles from './ContainerSignup.module.css';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { validarEmail, validarSenha, confirmarSenha } from '../Utils/validators';
-import { salvarNoLocalStorage, recuperarDoLocalStorage } from '../Utils/localStorageService';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function Signup() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
@@ -15,17 +17,10 @@ export default function Signup() {
         email: '',
         senha: '',
         confirmarSenha: '',
+        role: 'user', // Valor padrão
     });
 
-    // Função para salvar o usuário no localStorage
-    const cadastrarUsuario = (usuario) => {
-        const usuarios = recuperarDoLocalStorage('usuarios') || [];
-        usuarios.push(usuario);
-        salvarNoLocalStorage('usuarios', usuarios);
-        console.log('Usuários salvos:', usuarios); // Verifique no console
-    };
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
@@ -33,34 +28,50 @@ export default function Signup() {
 
             // Validações
             if (!validarEmail(form.email)) throw new Error('E-mail inválido!');
-            if (!validarSenha(form.senha)) throw new Error('Senha deve atender aos critérios!');
+            if (!validarSenha(form.senha)) throw new Error('A senha deve conter pelo menos 6 caracteres!');
             if (!confirmarSenha(form.senha, form.confirmarSenha))
                 throw new Error('As senhas não conferem!');
 
-            // Cadastrar o usuário
-            cadastrarUsuario({
+            // Criar usuário no Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.senha);
+            const user = userCredential.user;
+
+            // Atualizar o perfil com o nome
+            await updateProfile(user, { displayName: form.nome });
+
+            // Salvar no Firestore
+            const userDocRef = doc(db, "users", user.uid);
+            await setDoc(userDocRef, {
+                uid: user.uid,
                 nome: form.nome,
                 email: form.email,
-                senha: form.senha,
+                role: form.role || 'user',
             });
 
             alert('Cadastro efetuado com sucesso!');
-            setForm({ nome: '', email: '', senha: '', confirmarSenha: '' }); // Limpa o formulário
+            setForm({ nome: '', email: '', senha: '', confirmarSenha: '', role: 'user' });
+            navigate('/'); // Redireciona para login
         } catch (error) {
+            console.error("Erro ao cadastrar:", error.message);
             alert('Erro ao efetuar cadastro: ' + error.message);
         } finally {
             setLoading(false);
         }
     };
 
-   
-
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         setForm({
             ...form,
             [name]: value,
+        });
+    };
+
+    const handleRoleChange = (event) => {
+        // Se a checkbox estiver marcada, role = 'barber', senão 'user'
+        setForm({
+            ...form,
+            role: event.target.checked ? 'barber' : 'user'
         });
     };
 
@@ -117,11 +128,21 @@ export default function Signup() {
                     onChange={handleChange}
                 />
 
+                <div className={styles.wrapper}>
+                    <label htmlFor="roleCheckbox">Conta de Barbeiro</label>
+                    <Input
+                        name="roleCheckbox"
+                        type="checkbox"
+                        checked={form.role === 'barber'}
+                        onChange={handleRoleChange}
+                    />
+                </div>
+
                 <Button
                     type="submit"
-                    text="Cadastrar"
+                    text={loading ? "Cadastrando..." : "Cadastrar"}
                     disabled={!validarInput() || loading}
-                    />
+                />
 
                 <h3>
                     Já tem uma conta? <span onClick={() => navigate('/')}>Faça login</span>

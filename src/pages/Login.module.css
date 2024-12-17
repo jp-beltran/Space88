@@ -1,18 +1,36 @@
 .view{
     height: 100vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-between;
 }
 
 .view .container{
     width: 50%;
+    right: 0;
 }
 
 
 .view img{
     object-fit: cover;
     width: 50%;
+}
+
+@media (max-width: 768px) {
+    .view{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100vh;
+    }
+
+    .view .container{
+        width: 100%;
+    }
+
+    .view img {
+        display: none; /* Oculta a imagem lateral */
+    }
 }
 
 

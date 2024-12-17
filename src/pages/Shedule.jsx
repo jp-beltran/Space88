@@ -1,12 +1,18 @@
 import styles from "./Shedule.module.css";
-import Container from "../components/ContainerShedule";
+import ContainerShedule from "../components/ContainerShedule";
+import UserView from '../pages/UserView';
 
 export default function Shedule() {
     return (
         <div className={styles.view}>
-            <Container/>
+            <div className={styles.container}>
+                <ContainerShedule/>
+            </div>
+            
+            <div className={styles.userview}>
+                <UserView/>
+            </div>
 
-            <h2>teste</h2>
         </div>
     );
 }

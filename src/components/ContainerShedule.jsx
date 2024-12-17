@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { collection, addDoc } from "firebase/firestore"; // Firestore
+import { db, auth } from "../../firebase"; // Configuração do Firebase
 import styles from './ContainerShedule.module.css';
 import Input from '../components/Input';
 import Select from '../components/Select';
@@ -14,33 +16,49 @@ export default function ContainerShedule() {
     const servicos = ['Corte', 'Barba', 'Corte + Barba'];
     const barbeiros = ['Dave', 'Guava', 'Rafa', 'Gustavo'];
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
+        // Validação de campos
         if (!data || !servico || !horario || !barbeiro || !cliente) {
             setError('Por favor, preencha todos os campos.');
             return;
         }
 
-        const novoAgendamento = { data, servico, horario, barbeiro, cliente };
+        const userEmail = auth.currentUser?.email;
 
-        // Imprimir os dados no console para testes
-        console.log('Novo Agendamento:', novoAgendamento);
+        if (!userEmail) {
+            setError('É necessário estar autenticado para agendar.');
+            return;
+        }
 
-        // Resgatar agendamentos existentes e salvar o novo
-        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-        agendamentos.push(novoAgendamento);
-        localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+        const novoAgendamento = {
+            data,
+            servico,
+            horario,
+            barbeiro,
+            cliente,
+            email: userEmail, // Associar o agendamento ao usuário autenticado
+            createdAt: new Date().toISOString(),
+        };
 
-        // Resetar campos
-        setData('');
-        setServico('');
-        setHorario('');
-        setBarbeiro('');
-        setCliente('');
-        setError('');
+        try {
+            // Salvar o agendamento no Firestore
+            await addDoc(collection(db, "agendamentos"), novoAgendamento);
 
-        alert('Agendamento salvo com sucesso!');
+            alert("Agendamento salvo com sucesso!");
+
+            // Limpar os campos do formulário
+            setData('');
+            setServico('');
+            setHorario('');
+            setBarbeiro('');
+            setCliente('');
+            setError('');
+        } catch (error) {
+            console.error("Erro ao salvar o agendamento: ", error);
+            setError("Erro ao salvar o agendamento. Tente novamente.");
+        }
     };
 
     return (
@@ -78,24 +96,22 @@ export default function ContainerShedule() {
                     />
                 </div>
 
-                <div className={styles.wrapper}>
-                    <Select
-                        label="Barbeiros"
-                        name="barbeiro"
-                        options={barbeiros}
-                        value={barbeiro}
-                        onChange={(e) => setBarbeiro(e.target.value)}
-                    />
-                </div>
+                <Select
+                    label="Barbeiro"
+                    name="barbeiro"
+                    options={barbeiros}
+                    value={barbeiro}
+                    onChange={(e) => setBarbeiro(e.target.value)}
+                />
 
                 <div className={styles.wrapper}>
-                    <label htmlFor="cliente">Cliente</label>
+                    <label htmlFor="cliente">Nome do Cliente</label>
                     <Input
                         type="text"
                         id="cliente"
                         value={cliente}
                         onChange={(e) => setCliente(e.target.value)}
-                        placeholder="Nome do Cliente"
+                        placeholder="Digite o nome do cliente"
                     />
                 </div>
 
